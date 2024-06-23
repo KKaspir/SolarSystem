@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Planet {
+    private String name;
     private int mass = 0;
     private int diameter = 0;
     private double xLoc = 0;
@@ -25,7 +26,8 @@ public class Planet {
     int counter = 0;
 
     // конструктор
-    public Planet(double x, double y, double xVelocity, double yVelocity, int bodyMass, int bodyDiameter, Color bodyColor, double bodySpeed) {
+    public Planet(String n, double x, double y, double xVelocity, double yVelocity, int bodyMass, int bodyDiameter, Color bodyColor, double bodySpeed) {
+        name = n;
         xLoc = x;
         yLoc = y;
         velX = xVelocity;
@@ -36,6 +38,9 @@ public class Planet {
         speed = bodySpeed;
     }
 
+    public String getName() {
+        return name;
+    }
     public double getXPosition() {
         return xLoc;
     }
@@ -85,7 +90,7 @@ public class Planet {
         initial = Math.min(distance, initial);
         max = Math.max(distance, max);
 
-        acceleration = 6.67 * StarMass * PlanetMass / distance / distance;
+        acceleration =  StarMass * PlanetMass / distance / distance;
 
         dirX = (StarX - xLoc) / distance;
         dirY = (StarY - yLoc) / distance;
@@ -113,6 +118,8 @@ public class Planet {
 
         g.drawString((Math.round(distance*100.0)/100.0) * 1000000 + " km",
                 diameter+(int)(600+(xLoc-diameter/2-600)*scale), 16+(int)(400+(yLoc-diameter/2-400)*scale)+diameter);
+        g.drawString(name,
+                diameter+(int)(600+(xLoc-diameter/2-600)*scale), 16+(int)(410+(yLoc-diameter/2-400)*scale)+diameter);
     }
 // *****************************
 }
