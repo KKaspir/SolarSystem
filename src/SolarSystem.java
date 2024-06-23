@@ -20,14 +20,14 @@ public class SolarSystem extends JPanel {
         add(model);
         int smeshenie = 300;
 
-        solarSystemPlanets[0] = new Planet(600+smeshenie, 450+smeshenie, -4.7, 0, 9, 8, Color.GRAY, 1000); // Меркурий
-        solarSystemPlanets[1] = new Planet(752+smeshenie, 400+smeshenie, 0, 2.5, 900, 12, new Color(207, 153, 52), 1000); // Венера
-        solarSystemPlanets[2] = new Planet(600+smeshenie, 150+smeshenie, 1.8, 0, 900, 11, Color.BLUE, 2000); // Земля
-        solarSystemPlanets[3] = new Planet(650+smeshenie, -50+smeshenie, 1.2, 0, 900, 7, Color.RED, 2000); // Марс
-        solarSystemPlanets[4] = new Planet(600+smeshenie, -100+smeshenie, 1.2, 0, 900, 20, new Color(255, 140, 0), 2000); // Юпитер
-        solarSystemPlanets[5] = new Planet(600+smeshenie, -150+smeshenie, 1.2, 0, 900, 15, new Color(112, 128, 144), 2000); // Сатурн
-        solarSystemPlanets[6] = new Planet(600+smeshenie, -175+smeshenie, 1.2, 0, 900, 15, new Color(196, 233, 238), 2000); // Уран
-        solarSystemPlanets[7] = new Planet(0+smeshenie, 400+smeshenie, 0, -1.2, 900, 13, new Color(66, 98, 243), 2000);// Нептун
+        solarSystemPlanets[0] = new Planet(600+smeshenie, 450+smeshenie, -4.7, 0, 1, 8, Color.GRAY, 1000); // Меркурий
+        solarSystemPlanets[1] = new Planet(752+smeshenie, 400+smeshenie, 0, 2.5, 1, 12, new Color(207, 153, 52), 1000); // Венера
+        solarSystemPlanets[2] = new Planet(600+smeshenie, 150+smeshenie, 1.8, 0, 1, 11, Color.BLUE, 2000); // Земля
+        solarSystemPlanets[3] = new Planet(650+smeshenie, -50+smeshenie, 1.2, 0, 1, 7, Color.RED, 2000); // Марс
+        solarSystemPlanets[4] = new Planet(600+smeshenie, -100+smeshenie, 1.2, 0, 1, 20, new Color(255, 140, 0), 2000); // Юпитер
+        solarSystemPlanets[5] = new Planet(600+smeshenie, -150+smeshenie, 1.2, 0, 1, 15, new Color(112, 128, 144), 2000); // Сатурн
+        solarSystemPlanets[6] = new Planet(600+smeshenie, -175+smeshenie, 1.2, 0, 1, 15, new Color(196, 233, 238), 2000); // Уран
+        solarSystemPlanets[7] = new Planet(0+smeshenie, 400+smeshenie, 0, -1.2, 1, 13, new Color(66, 98, 243), 2000);// Нептун
 
         solarSystemPlanets[8] = new Planet(600+smeshenie, 400+smeshenie, .1, 0, 1000, 30, Color.ORANGE, 0);//Солнышко
         setBackground(new Color(8, 0, 28));
@@ -39,12 +39,12 @@ public class SolarSystem extends JPanel {
     }
 
 
-//    Обновление кадров
+    //  Обновление кадров
     private void gameLoop() {
         while (true) {
             if (!stop) {
                 for (int i = 0; i < solarSystemPlanets.length - 1; i++) {
-                    solarSystemPlanets[i].update(solarSystemPlanets[8].getXPosition(), solarSystemPlanets[8].getYPosition(), solarSystemPlanets[8].getMass());
+                    solarSystemPlanets[i].update(solarSystemPlanets[8].getXPosition(), solarSystemPlanets[8].getYPosition(), solarSystemPlanets[8].getMass(), solarSystemPlanets[i].getMass());
                 }
             }
             repaint();
@@ -68,6 +68,12 @@ public class SolarSystem extends JPanel {
         public void paintComponent(Graphics g) {
             for (var body : solarSystemPlanets) // пока только планетки
                 body.draw(g, size);
+
+            for (int i = 0; i < solarSystemPlanets.length; i++)
+            {
+                if (solarSystemPlanets[i].getDescVisible())
+                    solarSystemPlanets[i].dispDesc(g,size);
+            }
         }
 
         public void keyTyped(KeyEvent e) {

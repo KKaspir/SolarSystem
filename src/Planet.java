@@ -21,7 +21,7 @@ public class Planet {
     private double initial = 1000;
     private double max = 0;
     boolean visible;
-    int orbitDots[][] = new int[1000][2];
+    int orbitDots[][] = new int[4000][2];
     int counter = 0;
 
     // конструктор
@@ -72,7 +72,7 @@ public class Planet {
         yLoc += velY;
     }
 
-    public void update(double StarX, double StarY, int StarMass) {
+    public void update(double StarX, double StarY, int StarMass, int PlanetMass) {
         if (visible) {
             orbitDots[counter][0] = (int) (xLoc + .5);
             orbitDots[counter][1] = (int) (yLoc + .5);
@@ -85,13 +85,14 @@ public class Planet {
         initial = Math.min(distance, initial);
         max = Math.max(distance, max);
 
-        acceleration = StarMass / distance / distance;
+        acceleration = 6.67 * StarMass * PlanetMass / distance / distance;
 
         dirX = (StarX - xLoc) / distance;
         dirY = (StarY - yLoc) / distance;
 
         velX += dirX * acceleration;
         velY += dirY * acceleration;
+
         move();
 
     }
@@ -102,6 +103,17 @@ public class Planet {
                 (int) (diameter * size), (int) (diameter * size));
     }
 
+    public void dispDesc(Graphics g, double scale)
+    {
+        g.setColor(color);
+        for (int[] orbit : orbitDots)
+            g.drawLine(orbit[0],orbit[1],orbit[0],orbit[1]);
+        g.setFont(new Font("Arial", Font.PLAIN, 10));
+        g.setColor(Color.MAGENTA);
+
+        g.drawString((Math.round(distance*100.0)/100.0) * 1000000 + " km",
+                diameter+(int)(600+(xLoc-diameter/2-600)*scale), 16+(int)(400+(yLoc-diameter/2-400)*scale)+diameter);
+    }
 // *****************************
 }
 
