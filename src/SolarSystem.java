@@ -8,7 +8,7 @@ import javax.swing.*;
 public class SolarSystem extends JPanel {
     Planet[] solarSystemPlanets = new Planet[9];
     Model model;
-    final static int DELAY = 10;
+    final static int DELAY = 5;
     double size = 1;
     String[][] description;
     boolean stop = false;
@@ -16,20 +16,20 @@ public class SolarSystem extends JPanel {
 
     public SolarSystem() {
         model = new Model();
-        model.setPreferredSize(new Dimension(2000, 2000));
+        model.setPreferredSize(new Dimension(1800, 1200));
         add(model);
         int smeshenie = 300;
 
-        solarSystemPlanets[0] = new Planet(600+smeshenie, 450+smeshenie, -4.7, 0, 1, 8, Color.GRAY, 1000); // Меркурий
-        solarSystemPlanets[1] = new Planet(752+smeshenie, 400+smeshenie, 0, 2.5, 1, 12, new Color(207, 153, 52), 1000); // Венера
-        solarSystemPlanets[2] = new Planet(600+smeshenie, 150+smeshenie, 1.8, 0, 1, 11, Color.BLUE, 2000); // Земля
-        solarSystemPlanets[3] = new Planet(650+smeshenie, -50+smeshenie, 1.2, 0, 1, 7, Color.RED, 2000); // Марс
-        solarSystemPlanets[4] = new Planet(600+smeshenie, -100+smeshenie, 1.2, 0, 1, 20, new Color(255, 140, 0), 2000); // Юпитер
-        solarSystemPlanets[5] = new Planet(600+smeshenie, -150+smeshenie, 1.2, 0, 1, 15, new Color(112, 128, 144), 2000); // Сатурн
-        solarSystemPlanets[6] = new Planet(600+smeshenie, -175+smeshenie, 1.2, 0, 1, 15, new Color(196, 233, 238), 2000); // Уран
-        solarSystemPlanets[7] = new Planet(0+smeshenie, 400+smeshenie, 0, -1.2, 1, 13, new Color(66, 98, 243), 2000);// Нептун
+        solarSystemPlanets[0] = new Planet("Меркурий", 600+smeshenie, 450+smeshenie, -4.7, 0, 12, 8, new Color(197, 198, 196), 1000); // Меркурий
+        solarSystemPlanets[1] = new Planet("Венера",752+smeshenie, 400+smeshenie, 0, 2.5, 15 , 12, new Color(207, 153, 52), 1000); // Венера
+        solarSystemPlanets[2] = new Planet("Земля",600+smeshenie, 150+smeshenie, 1.8, 0, 15, 11, Color.BLUE, 2000); // Земля
+        solarSystemPlanets[3] = new Planet("Марс",650+smeshenie, -50+smeshenie, 1.2, 0, 14, 7, Color.RED, 2000); // Марс
+        solarSystemPlanets[4] = new Planet("Юпитер",600+smeshenie, -100+smeshenie, 1.2, 0, 14, 20, new Color(171, 150, 117), 2000); // Юпитер
+        solarSystemPlanets[5] = new Planet("Сатурн",600+smeshenie, -150+smeshenie, 1.2, 0, 14, 15, new Color(112, 128, 144), 2000); // Сатурн
+        solarSystemPlanets[6] = new Planet("Уран",600+smeshenie, -175+smeshenie, 1.2, 0, 14, 15, new Color(172, 169, 161), 2000); // Уран
+        solarSystemPlanets[7] = new Planet("Нептун",0+smeshenie, 400+smeshenie, 0, -1.2, 12, 13, new Color(66, 98, 243), 2000);// Нептун
 
-        solarSystemPlanets[8] = new Planet(600+smeshenie, 400+smeshenie, .1, 0, 1000, 30, Color.ORANGE, 0);//Солнышко
+        solarSystemPlanets[8] = new Planet("Солнце",600+smeshenie, 400+smeshenie, .1, 0,    70 , 30, new Color(252, 97, 10), 0);//Солнышко1,9885⋅10 30
         setBackground(new Color(8, 0, 28));
 
 

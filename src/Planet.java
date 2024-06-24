@@ -22,7 +22,7 @@ public class Planet {
     private double initial = 1000;
     private double max = 0;
     boolean visible;
-    int orbitDots[][] = new int[4000][2];
+    int orbitDots[][] = new int[16000][2];
     int counter = 0;
 
     // конструктор
@@ -81,9 +81,9 @@ public class Planet {
         if (visible) {
             orbitDots[counter][0] = (int) (xLoc + .5);
             orbitDots[counter][1] = (int) (yLoc + .5);
-            counter = (counter + 1) % 1000;
+            counter = (counter + 1) % 4000;
         } else {
-            orbitDots = new int[1000][2];
+            orbitDots = new int[4000][2];
             counter = 0;
         }
         distance = Math.sqrt((StarX - xLoc) * (StarX - xLoc) + (StarY - yLoc) * (StarY - yLoc));
