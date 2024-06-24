@@ -7,8 +7,9 @@ import javax.swing.*;
 
 public class SolarSystem extends JPanel {
     Planet[] solarSystemPlanets = new Planet[9];
+    Satellite[] satellites = new Satellite[1];
     Model model;
-    final static int DELAY = 5;
+    final static int DELAY = 100;
     double size = 1;
     String[][] description;
     boolean stop = false;
@@ -24,12 +25,15 @@ public class SolarSystem extends JPanel {
         solarSystemPlanets[1] = new Planet("Венера",752+smeshenie, 400+smeshenie, 0, 2.5, 15 , 12, new Color(207, 153, 52), 1000); // Венера
         solarSystemPlanets[2] = new Planet("Земля",600+smeshenie, 150+smeshenie, 1.8, 0, 15, 11, Color.BLUE, 2000); // Земля
         solarSystemPlanets[3] = new Planet("Марс",650+smeshenie, -50+smeshenie, 1.2, 0, 14, 7, Color.RED, 2000); // Марс
-        solarSystemPlanets[4] = new Planet("Юпитер",600+smeshenie, -100+smeshenie, 1.2, 0, 14, 20, new Color(171, 150, 117), 2000); // Юпитер
-        solarSystemPlanets[5] = new Planet("Сатурн",600+smeshenie, -150+smeshenie, 1.2, 0, 14, 15, new Color(112, 128, 144), 2000); // Сатурн
-        solarSystemPlanets[6] = new Planet("Уран",600+smeshenie, -175+smeshenie, 1.2, 0, 14, 15, new Color(172, 169, 161), 2000); // Уран
-        solarSystemPlanets[7] = new Planet("Нептун",0+smeshenie, 400+smeshenie, 0, -1.2, 12, 13, new Color(66, 98, 243), 2000);// Нептун
+        solarSystemPlanets[4] = new Planet("Юпитер",600+smeshenie, -100+smeshenie, 1.2, 0, 14, 20, new Color(171, 150, 117), 1000); // Юпитер
+        solarSystemPlanets[5] = new Planet("Сатурн",600+smeshenie, -150+smeshenie, 1.2, 0, 14, 15, new Color(112, 128, 144), 1000); // Сатурн
+        solarSystemPlanets[6] = new Planet("Уран",600+smeshenie, -175+smeshenie, 1.2, 0, 14, 15, new Color(172, 169, 161), 1000); // Уран
+        solarSystemPlanets[7] = new Planet("Нептун",0+smeshenie, 400+smeshenie, 0, -1.2, 12, 13, new Color(66, 98, 243), 1000);// Нептун
 
         solarSystemPlanets[8] = new Planet("Солнце",600+smeshenie, 400+smeshenie, .1, 0,    70 , 30, new Color(252, 97, 10), 0);//Солнышко1,9885⋅10 30
+
+        satellites[0] = new Satellite("Луна", 1, 1, 20, 5, Color.GRAY, 2); // Пример параметров для создания объекта спутника, привязанного к Земле
+
         setBackground(new Color(8, 0, 28));
 
 
@@ -45,7 +49,13 @@ public class SolarSystem extends JPanel {
             if (!stop) {
                 for (int i = 0; i < solarSystemPlanets.length - 1; i++) {
                     solarSystemPlanets[i].update(solarSystemPlanets[8].getXPosition(), solarSystemPlanets[8].getYPosition(), solarSystemPlanets[8].getMass(), solarSystemPlanets[i].getMass());
+
                 }
+                for (int j = 0; j < satellites.length; j++) {
+                    satellites[j].update(solarSystemPlanets[2].getXPosition(), solarSystemPlanets[2].getYPosition());
+                    System.out.println("Рисую спутник");
+                }
+
             }
             repaint();
 
@@ -68,6 +78,10 @@ public class SolarSystem extends JPanel {
         public void paintComponent(Graphics g) {
             for (var body : solarSystemPlanets) // пока только планетки
                 body.draw(g, size);
+
+            for (var body : satellites)
+                body.draw(g, size);
+
 
             for (int i = 0; i < solarSystemPlanets.length; i++)
             {

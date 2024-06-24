@@ -113,7 +113,7 @@ public class Planet {
         g.setColor(color);
         for (int[] orbit : orbitDots)
             g.drawLine(orbit[0],orbit[1],orbit[0],orbit[1]);
-        g.setFont(new Font("Arial", Font.PLAIN, 10));
+        g.setFont(new Font("Arial", Font.PLAIN, 12));
         g.setColor(Color.MAGENTA);
 
         g.drawString((Math.round(distance*100.0)/100.0) * 1000000 + " km",
