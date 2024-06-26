@@ -48,7 +48,10 @@ public class Planet {
     public double getYPosition() {
         return yLoc;
     }
-
+    public double getVelocityX() {return velX;}
+    public double getVelocityY() {return velY;}
+    public double setVelocityX(double v) {velX = v; return velX;}
+    public double setVelocityY(double v) {velY = v; return velY;}
     public int getMass() {
         return mass;
     }
@@ -99,9 +102,7 @@ public class Planet {
         velY += dirY * acceleration;
 
         move();
-
     }
-
     public void draw(Graphics g) {
         g.setColor(color);
         g.fillOval((int) (650 + (xLoc - diameter / 2 - 650)), (int) (500 + (yLoc - diameter / 2 - 500)),

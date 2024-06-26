@@ -8,8 +8,10 @@ import javax.swing.*;
 public class SolarSystem extends JPanel {
     Planet[] solarSystemPlanets = new Planet[9];
     Satellite[] satellites = new Satellite[1];
+    BlackHole[] blackHoles = new BlackHole[1];
+    StarField starField = new StarField(70);
     Model model;
-    final static int DELAY = 10;
+    final static int DELAY = 40;
     double size = 1;
     String[][] description;
     boolean stop = false;
@@ -34,12 +36,16 @@ public class SolarSystem extends JPanel {
 
         satellites[0] = new Satellite("Луна", 20, 16, 6, Color.GRAY); // Пример параметров для создания объекта спутника, привязанного к Земле
 
+        blackHoles[0] = new BlackHole("Сверхмассивная черная дыра", 800, 600, 77, 100, Color.RED);
+        blackHoles[0].pullNearbyObjects(solarSystemPlanets, satellites);
+
         setBackground(new Color(8, 0, 28));
 
 
         Thread thread = new Thread(() -> gameLoop());
 
         thread.start();
+
     }
 
     //  Обновление кадров
@@ -53,6 +59,8 @@ public class SolarSystem extends JPanel {
                 for (int j = 0; j < satellites.length; j++) {
                     satellites[j].update(solarSystemPlanets[2].getXPosition(), solarSystemPlanets[2].getYPosition());
                 }
+
+                starField.twinklingStars();
 
             }
             repaint();
@@ -81,6 +89,8 @@ public class SolarSystem extends JPanel {
                 body.draw(g);
             }
 
+//            blackHoles[0].draw(g);
+
             for (int i = 0; i < solarSystemPlanets.length; i++)
             {
                 if (solarSystemPlanets[i].getOrbitVisible())
@@ -92,6 +102,8 @@ public class SolarSystem extends JPanel {
                 if (satellites[i].getOrbitVisible())
                     satellites[i].drawOrbit(g);
             }
+
+            starField.drawComponent(g);
         }
 
         public void keyTyped(KeyEvent e) {
