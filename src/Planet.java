@@ -22,7 +22,7 @@ public class Planet {
     private double initial = 1000;
     private double max = 0;
     boolean visible;
-    int orbitDots[][] = new int[16000][2];
+    int orbitDots[][] = new int[4000][2];
     int counter = 0;
 
     // конструктор
@@ -57,18 +57,18 @@ public class Planet {
         return diameter;
     }
 
-    public boolean getDescVisible() {
+    public boolean getOrbitVisible() {
         return visible;
     }
 
-    public void setDescVisible(boolean b) {
+    public void setOrbitVisible(boolean b) {
         visible = b;
     }
 
     // проверка попадания по планете
-    public boolean hitPlanet(int x, int y, double scale) {
-        return (x > 600 + (getXPosition() - diameter - 600) * scale && x < 600 + (getXPosition() + diameter - 600) * scale &&
-                y > 400 + (getYPosition() - diameter - 400) * scale && y < 400 + (getYPosition() + diameter - 400) * scale);
+    public boolean hitPlanet(int x, int y) {
+        return (x > 600 + (getXPosition() - diameter - 600) && x < 600 + (getXPosition() + diameter - 600) &&
+                y > 400 + (getYPosition() - diameter - 400) && y < 400 + (getYPosition() + diameter - 400));
     }
 
     // передвижение из Location на Velocity 
@@ -102,13 +102,13 @@ public class Planet {
 
     }
 
-    public void draw(Graphics g, double size) {
+    public void draw(Graphics g) {
         g.setColor(color);
-        g.fillOval((int) (650 + (xLoc - diameter / 2 - 650) * size), (int) (500 + (yLoc - diameter / 2 - 500) * size),
-                (int) (diameter * size), (int) (diameter * size));
+        g.fillOval((int) (650 + (xLoc - diameter / 2 - 650)), (int) (500 + (yLoc - diameter / 2 - 500)),
+                (int) (diameter ), (int) (diameter));
     }
 
-    public void dispDesc(Graphics g, double scale)
+    public void dispDesc(Graphics g)
     {
         g.setColor(color);
         for (int[] orbit : orbitDots)
@@ -117,9 +117,9 @@ public class Planet {
         g.setColor(Color.MAGENTA);
 
         g.drawString((Math.round(distance*100.0)/100.0) * 1000000 + " km",
-                diameter+(int)(600+(xLoc-diameter/2-600)*scale), 16+(int)(400+(yLoc-diameter/2-400)*scale)+diameter);
+                diameter+(int)(600+(xLoc-diameter/2-600)), 16+(int)(400+(yLoc-diameter/2-400))+diameter);
         g.drawString(name,
-                diameter+(int)(600+(xLoc-diameter/2-600)*scale), 16+(int)(410+(yLoc-diameter/2-400)*scale)+diameter);
+                diameter+(int)(600+(xLoc-diameter/2-600)), 16+(int)(410+(yLoc-diameter/2-400))+diameter);
     }
 // *****************************
 }

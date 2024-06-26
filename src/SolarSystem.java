@@ -9,7 +9,7 @@ public class SolarSystem extends JPanel {
     Planet[] solarSystemPlanets = new Planet[9];
     Satellite[] satellites = new Satellite[1];
     Model model;
-    final static int DELAY = 100;
+    final static int DELAY = 10;
     double size = 1;
     String[][] description;
     boolean stop = false;
@@ -32,7 +32,7 @@ public class SolarSystem extends JPanel {
 
         solarSystemPlanets[8] = new Planet("Солнце",600+smeshenie, 400+smeshenie, .1, 0,    70 , 30, new Color(252, 97, 10), 0);//Солнышко1,9885⋅10 30
 
-        satellites[0] = new Satellite("Луна", 1, 1, 20, 5, Color.GRAY, 2); // Пример параметров для создания объекта спутника, привязанного к Земле
+        satellites[0] = new Satellite("Луна", 20, 16, 6, Color.GRAY); // Пример параметров для создания объекта спутника, привязанного к Земле
 
         setBackground(new Color(8, 0, 28));
 
@@ -41,7 +41,6 @@ public class SolarSystem extends JPanel {
 
         thread.start();
     }
-
 
     //  Обновление кадров
     private void gameLoop() {
@@ -53,7 +52,6 @@ public class SolarSystem extends JPanel {
                 }
                 for (int j = 0; j < satellites.length; j++) {
                     satellites[j].update(solarSystemPlanets[2].getXPosition(), solarSystemPlanets[2].getYPosition());
-                    System.out.println("Рисую спутник");
                 }
 
             }
@@ -77,16 +75,22 @@ public class SolarSystem extends JPanel {
         // отрисовка всех объектов
         public void paintComponent(Graphics g) {
             for (var body : solarSystemPlanets) // пока только планетки
-                body.draw(g, size);
+                body.draw(g);
 
-            for (var body : satellites)
-                body.draw(g, size);
-
+            for (var body : satellites) {
+                body.draw(g);
+            }
 
             for (int i = 0; i < solarSystemPlanets.length; i++)
             {
-                if (solarSystemPlanets[i].getDescVisible())
-                    solarSystemPlanets[i].dispDesc(g,size);
+                if (solarSystemPlanets[i].getOrbitVisible())
+                    solarSystemPlanets[i].dispDesc(g);
+            }
+
+            for (int i = 0; i < satellites.length; i++)
+            {
+                if (satellites[i].getOrbitVisible())
+                    satellites[i].drawOrbit(g);
             }
         }
 
@@ -99,10 +103,21 @@ public class SolarSystem extends JPanel {
         // Действие с планетой, когда попадаем по ней курсором
         public void mouseReleased(MouseEvent e) {
             for (int i = 0; i < solarSystemPlanets.length; i++) {
-                if (solarSystemPlanets[i].hitPlanet(e.getX(), e.getY(), size)) {
+                if (solarSystemPlanets[i].hitPlanet(e.getX(), e.getY())) {
 
-                    solarSystemPlanets[i].setDescVisible(!solarSystemPlanets[i].getDescVisible());
-                    if (solarSystemPlanets[i].getDescVisible()) {
+                    solarSystemPlanets[i].setOrbitVisible(!solarSystemPlanets[i].getOrbitVisible());
+                    if (solarSystemPlanets[i].getOrbitVisible()) {
+                        clicked = i;
+                    } else {
+                        clicked = -1;
+                    }
+                }
+            }
+            for (int i = 0; i < satellites.length; i++) {
+                if (satellites[i].hitBody(e.getX(), e.getY())) {
+
+                    satellites[i].setOrbitVisible(!satellites[i].getOrbitVisible());
+                    if (satellites[i].getOrbitVisible()) {
                         clicked = i;
                     } else {
                         clicked = -1;
