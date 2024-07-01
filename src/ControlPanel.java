@@ -35,10 +35,10 @@ public class ControlPanel extends JPanel {
             planet.setMass(newMassCount);
         });
 
-        planetNameLabel = new JLabel(planet.getName(), SwingConstants.CENTER);
+        planetNameLabel = new JLabel("Масса объекта '" + planet.getName() + "'", SwingConstants.CENTER);
 
         add(starCountSlider, BorderLayout.CENTER);
-        add(planetNameLabel, BorderLayout.SOUTH);
+        add(planetNameLabel, BorderLayout.NORTH);
     }
 }
 
