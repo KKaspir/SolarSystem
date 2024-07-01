@@ -12,9 +12,11 @@ public class SolarSystem extends JPanel {
     StarField starField = new StarField();
 
     ControlPanel[] controlPanels = new ControlPanel[9];
+    int DELAY = 50;
+    ControlPanelForInteger delayPanel = new ControlPanelForInteger(DELAY, "Задержка между кадрами");
 
     Model model;
-    int DELAY = 40;
+
     double size = 1;
     String[][] description;
     boolean stop = false;
@@ -46,9 +48,12 @@ public class SolarSystem extends JPanel {
             modelAndControlsPanel.add(controlPanels[i]);
         }
 
+        modelAndControlsPanel.add(delayPanel);
 
         setBackground(new Color(8, 0, 28));
         Thread thread = new Thread(() -> gameLoop());
+
+        DELAY = delayPanel.getXValue();
 
         thread.start();
 
@@ -68,7 +73,7 @@ public class SolarSystem extends JPanel {
 
                 starField.twinklingStars();
 //                controlPanel.drawComponent(g);
-
+                DELAY = delayPanel.getXValue();
             }
             repaint();
 
