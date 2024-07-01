@@ -8,19 +8,19 @@ import javax.swing.*;
 public class SolarSystem extends JPanel {
     Planet[] solarSystemPlanets = new Planet[9];
     Satellite[] satellites = new Satellite[1];
-    BlackHole[] blackHoles = new BlackHole[1];
-    StarField starField = new StarField(70);
+
+    StarField starField = new StarField();
+
+    ControlPanel[] controlPanels = new ControlPanel[9];
+
     Model model;
-    final static int DELAY = 40;
+    int DELAY = 40;
     double size = 1;
     String[][] description;
     boolean stop = false;
     int clicked = -1;
 
     public SolarSystem() {
-        model = new Model();
-        model.setPreferredSize(new Dimension(1800, 1200));
-        add(model);
         int smeshenie = 300;
 
         solarSystemPlanets[0] = new Planet("Меркурий", 600+smeshenie, 450+smeshenie, -4.7, 0, 12, 8, new Color(197, 198, 196), 1000); // Меркурий
@@ -31,17 +31,23 @@ public class SolarSystem extends JPanel {
         solarSystemPlanets[5] = new Planet("Сатурн",600+smeshenie, -150+smeshenie, 1.2, 0, 14, 15, new Color(112, 128, 144), 1000); // Сатурн
         solarSystemPlanets[6] = new Planet("Уран",600+smeshenie, -175+smeshenie, 1.2, 0, 14, 15, new Color(172, 169, 161), 1000); // Уран
         solarSystemPlanets[7] = new Planet("Нептун",0+smeshenie, 400+smeshenie, 0, -1.2, 12, 13, new Color(66, 98, 243), 1000);// Нептун
-
-        solarSystemPlanets[8] = new Planet("Солнце",600+smeshenie, 400+smeshenie, .1, 0,    70 , 30, new Color(252, 97, 10), 0);//Солнышко1,9885⋅10 30
-
+        solarSystemPlanets[8] = new Planet("Солнце",600+smeshenie, 400+smeshenie, .1, 0,    70 , 30, new Color(252, 97, 10), 0);//Солнышко1,
         satellites[0] = new Satellite("Луна", 20, 16, 6, Color.GRAY); // Пример параметров для создания объекта спутника, привязанного к Земле
 
-        blackHoles[0] = new BlackHole("Сверхмассивная черная дыра", 800, 600, 77, 100, Color.RED);
-        blackHoles[0].pullNearbyObjects(solarSystemPlanets, satellites);
+
+        Panel modelAndControlsPanel = new Panel();
+        modelAndControlsPanel.setLayout(new GridLayout(0, 2));
+        model = new Model();
+        model.setPreferredSize(new Dimension(1800, 1200));
+        add(model, BorderLayout.CENTER);
+        add(modelAndControlsPanel, BorderLayout.CENTER);
+        for (int i = 0; i < 9; i++) {
+            controlPanels[i] = new ControlPanel(solarSystemPlanets[i]);
+            modelAndControlsPanel.add(controlPanels[i]);
+        }
+
 
         setBackground(new Color(8, 0, 28));
-
-
         Thread thread = new Thread(() -> gameLoop());
 
         thread.start();
@@ -61,6 +67,7 @@ public class SolarSystem extends JPanel {
                 }
 
                 starField.twinklingStars();
+//                controlPanel.drawComponent(g);
 
             }
             repaint();
@@ -89,8 +96,6 @@ public class SolarSystem extends JPanel {
                 body.draw(g);
             }
 
-//            blackHoles[0].draw(g);
-
             for (int i = 0; i < solarSystemPlanets.length; i++)
             {
                 if (solarSystemPlanets[i].getOrbitVisible())
@@ -104,6 +109,7 @@ public class SolarSystem extends JPanel {
             }
 
             starField.drawComponent(g);
+
         }
 
         public void keyTyped(KeyEvent e) {
@@ -163,7 +169,6 @@ public class SolarSystem extends JPanel {
         }
     }
 
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
 
@@ -177,7 +182,6 @@ public class SolarSystem extends JPanel {
                 frame.setVisible(true);
             }
         });
-
     }
 }
 

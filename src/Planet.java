@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class Planet {
     private String name;
-    private int mass = 0;
+    private int mass = 1;
     private int diameter = 0;
     private double xLoc = 0;
     private double yLoc = 0;
@@ -55,6 +55,7 @@ public class Planet {
     public int getMass() {
         return mass;
     }
+    public void setMass(int m) {mass = m;}
 
     public int getDiameter() {
         return diameter;

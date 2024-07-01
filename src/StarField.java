@@ -6,9 +6,17 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class StarField extends JPanel {
-
     private ArrayList<Point> stars;
     private Random random;
+    private int starCount = 100;
+
+    public int getStarsCount(){
+        return starCount;
+    }
+
+    public void setStarsCount(int cnt){
+        starCount = cnt;
+    }
 
 //    своя функция рандома
     public int getRandomNumber(int min, int max) {
@@ -17,7 +25,7 @@ public class StarField extends JPanel {
     }
 
 //    инициализация всех звезд
-    public StarField(int starCount) {
+    public StarField() {
         stars = new ArrayList<>();
         random = new Random();
 
@@ -38,11 +46,11 @@ public class StarField extends JPanel {
     }
 
     public void twinklingStars() {
-        for (Point star : stars) {
+        for (int i = 0; i < starCount; i++) {
             if (random.nextInt(600) < 1) { // частота мерцания
                 int x = getRandomNumber(0, 1800);
                 int y = getRandomNumber(0, 1200);
-                star.setLocation(x, y);
+                stars.set(i, new Point(x, y));
             }
         }
         repaint();
