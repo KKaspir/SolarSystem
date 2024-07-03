@@ -74,6 +74,5 @@ public class Satellite {
         g.drawString(name,
                 diameter + (int) (600 + (xLoc - diameter / 2 - 600) ), 16 + (int) (410 + (yLoc - diameter / 2 - 400)) + diameter);
     }
-
 }
 

@@ -35,7 +35,6 @@ public class Planet {
         mass = bodyMass;
         diameter = bodyDiameter;
         color = bodyColor;
-        speed = bodySpeed;
     }
 
     public String getName() {
